@@ -1,6 +1,7 @@
 // import util from '../../helpers/util';
 import categoryData from '../../helpers/data/categoriesData';
 import typeData from '../../helpers/data/typesData';
+import productData from '../../helpers/data/productData';
 
 // const writeProducts = (products) => {
 //   let domString = '';
@@ -19,12 +20,17 @@ import typeData from '../../helpers/data/typesData';
 
 const initProducts = () => {
   categoryData.loadCategories()
-    .then(resp => console.error(typeData.getTypesForEachCategory(resp.data.categories)))
-    // .then(resp => pinsData.getPinsForEachBoard(resp.data.boards))
-    // .then((boardsWithPins) => {
-    //   writeProducts(boardsWithPins);
-    // })
-    .catch(err => console.error('error from initBoards requests', err));
+    .then(resp => typeData.getTypesForEachCategory(resp.data.categories))
+    .then((categoriesWithTypes) => {
+      console.error('inside initProducts', categoriesWithTypes);
+      productData.getProductsForEachType(categoriesWithTypes);
+    })
+    // const productsResponse = productData.getProductsForEachType(categoriesWithTypes);
+  // .then(resp => pinsData.getPinsForEachBoard(resp.data.boards))
+  // .then((boardsWithPins) => {
+  //   writeProducts(boardsWithPins);
+  // })
+  .catch(err => console.error('error from initBoards requests', err));
 };
 
 export default { initProducts };

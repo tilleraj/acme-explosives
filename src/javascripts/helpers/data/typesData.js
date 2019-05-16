@@ -10,7 +10,7 @@ const getTypesForEachCategory = categories => new Promise((resolve, reject) => {
         newCategory.types = matchingTypes;
         return newCategory;
       });
-
+      console.error('inside typesData', categoriesWithTypes);
       resolve(categoriesWithTypes);
     })
     .catch(err => reject(err));
