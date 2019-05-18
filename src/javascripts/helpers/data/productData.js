@@ -30,9 +30,9 @@ const getProductsForEachType = categoriesWithTypes => new Promise((resolve, reje
           newCategory.types[t] = newType;
           // console.error('newCategory inside loop: ', newCategory);
         }
-        console.error('newCategories.types[category]: ', newCategories[c]);
+        // console.error('newCategories.types[category]: ', newCategories[c]);
       }
-      console.error('newCategories: ', newCategories);
+      // console.error('newCategories: ', newCategories);
       resolve(newCategories);
     })
     .catch(err => reject(err));
