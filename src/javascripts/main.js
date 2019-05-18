@@ -1,9 +1,9 @@
 import 'bootstrap';
 import '../styles/main.scss';
-import products from './components/products/products';
+import categorySelection from './components/categorySelection/categorySelection';
 
 const init = () => {
-  products.initProducts();
+  categorySelection.select();
 };
 
 init();

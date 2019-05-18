@@ -1,4 +1,3 @@
-// import util from '../../helpers/util';
 import categoryData from '../../helpers/data/categoriesData';
 import typeData from '../../helpers/data/typesData';
 import productData from '../../helpers/data/productData';
@@ -33,14 +32,14 @@ const writeCategoriesWithTypesWithProducts = (cWtWp) => {
   util.printToDom('products', domString);
 };
 
-const initProducts = () => {
+const initProducts = (selection) => {
+  console.log(selection);
   categoryData.loadCategories()
     .then(resp => typeData.getTypesForEachCategory(resp.data.categories))
     .then((categoriesWithTypes) => {
       productData.getProductsForEachType(categoriesWithTypes)
         .then((resp => {
           const cWtWp = resp;
-          console.error('inside initProducts', cWtWp);
           writeCategoriesWithTypesWithProducts(cWtWp);
         }))
     })
