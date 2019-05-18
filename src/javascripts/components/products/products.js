@@ -22,7 +22,6 @@ const initProducts = () => {
   categoryData.loadCategories()
     .then(resp => typeData.getTypesForEachCategory(resp.data.categories))
     .then((categoriesWithTypes) => {
-      console.error('inside initProducts', categoriesWithTypes);
       productData.getProductsForEachType(categoriesWithTypes);
     })
     // const productsResponse = productData.getProductsForEachType(categoriesWithTypes);

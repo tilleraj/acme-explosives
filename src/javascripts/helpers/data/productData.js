@@ -1,47 +1,39 @@
 import axios from 'axios';
 
-// const getProductsForEachType = types => new Promise((resolve, reject) => {
-//   axios.get('../db/products.json')
-//     .then((resp) => {
-//       const { products } = resp.data;
-//       const typesWithProducts = types.map((type) => {
-//         const newType = type;
-//         const matchingProducts = products.filter(product => product.type === type.id);
-//         newType.products = matchingProducts;
-//         return newType;
-//       });
+const matchTypesWithProducts = (type, products) => {
+  const newType = type;
+  const matchingProducts = products.filter(product => product.type === type.id);
+  newType.products = matchingProducts;
+  return newType;
+};
 
-//       resolve(typesWithProducts);
-//     })
-//     .catch(err => reject(err));
-// });
-
-
-// const getProductsForEachType = categoriesWithTypes => new Promise((resolve, reject) => {
-//   axios.get('../db/products.json')
-//     .then((resp) => {
-//       const { products } = resp.data;
-//       const categoriesWithTypesWithProducts = categoriesWithTypes.map((category) => {
-//         const newCategory = category;
-//         newCategory.types.forEach((type) => {
-//           console.error('from newCategory.types.forEach', type);
-//           console.error(products);
-//         });
-//         return newCategory;
-//       });
-
-//       resolve(categoriesWithTypesWithProducts);
-//     })
-//     .catch(err => reject(err));
-// });
+const flattenProducts = (tallArray) => {
+  const flatArray = [];
+  tallArray.forEach((product) => {
+    flatArray.push(Object.values(product)[0]);
+  });
+  return flatArray;
+};
 
 const getProductsForEachType = categoriesWithTypes => new Promise((resolve, reject) => {
   axios.get('../db/products.json')
     .then((resp) => {
       const { products } = resp.data;
-      console.error('inside getProductsForEachType', products);
-      console.error('inside getProductsForEachType', categoriesWithTypes);
-      resolve(products);
+      const productsArray = flattenProducts(products);
+      const newCategories = categoriesWithTypes;
+      for (let c = 0; c < categoriesWithTypes.length; c += 1) {
+        const newCategory = categoriesWithTypes[c];
+        for (let t = 0; t < newCategory.types.length; t += 1) {
+          const element = newCategory.types[t];
+          const newType = matchTypesWithProducts(element, productsArray);
+          // console.error('newType :', newType);
+          newCategory.types[t] = newType;
+          // console.error('newCategory inside loop: ', newCategory);
+        }
+        console.error('newCategories.types[category]: ', newCategories[c]);
+      }
+      console.error('newCategories: ', newCategories);
+      resolve(newCategories);
     })
     .catch(err => reject(err));
 });
