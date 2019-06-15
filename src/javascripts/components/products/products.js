@@ -39,7 +39,6 @@ const initProducts = () => {
       productData.getProductsForEachType(categoriesWithTypes)
         .then((resp => {
           const cWtWp = resp;
-          console.error('inside initProducts', cWtWp);
           writeCategoriesWithTypesWithProducts(cWtWp);
         }))
     })
