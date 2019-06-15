@@ -14,7 +14,6 @@ const writeCategoriesWithTypesWithProducts = (cWtWp) => {
       const currentType = currentCategory.types[t];
       for (let p = 0; p < currentType.products.length; p++) {
         const currentProduct = currentType.products[p];
-        console.error(currentProduct.name);
         domString += '<div class="col-12 col-sm-6 col-md-4 col-lg-3">';
         domString += `  <div class="card" id="${currentProduct.id}">`;
         domString += '    <div class="card-body">';
